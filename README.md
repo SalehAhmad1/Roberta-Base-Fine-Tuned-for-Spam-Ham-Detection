@@ -27,9 +27,8 @@ model = AutoModelForSequenceClassification.from_pretrained("SalehAhmad/roberta-b
 After the tokenizer and the model have been initiated then to use the model simply follow the following statements
 
 ```
-inputSentence = input()
-Tokens = [x.lower() for x in inputSentence.split()]
-inputs = tokenizer(Tokens,truncation=True, is_split_into_words=True, return_tensors='pt')
+inputSentence = input().lower()
+inputs = tokenizer(inputSentence, truncation=True, padding='max_length', max_length=512, return_tensors='pt')
 logits = model(inputs['input_ids'],inputs['attention_mask']).logits
 predicted_class_id = logits.argmax().item()
 print('Prediction:',model.config.id2label[predicted_class_id])
